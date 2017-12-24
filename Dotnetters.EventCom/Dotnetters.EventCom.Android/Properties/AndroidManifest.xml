@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.Dotnetters.EventCom">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="0.1" android:versionName="0.1 Reconnect17" package="es.Dotnetters.EventCom" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="15" />
-	<application android:label="Dotnetters.EventCom.Android"></application>
+	<application android:label="Dotnetters EventCom" android:icon="@drawable/icon"></application>
 </manifest>
