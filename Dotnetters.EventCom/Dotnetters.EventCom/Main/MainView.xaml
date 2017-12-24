@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Dotnetters.EventCom.Main"
+             x:Class="Dotnetters.EventCom.Main.MainView"
+             Title="Dotnetters Event Communicator">
+
+    <StackLayout>
+        <Label Text="Usuario"/>
+        <Entry Text="{Binding UserName}"/>
+        <Label Text="Mensaje"/>
+        <Entry Text="{Binding Message}" WidthRequest="200"/>
+        <Button Text="Enviar" Command="{Binding SendCommand}"/>
+    </StackLayout>
+
+</ContentPage>
