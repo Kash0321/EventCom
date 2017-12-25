@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnetters.EventCom.iOS", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetters.EventCom", "Dotnetters.EventCom\Dotnetters.EventCom\Dotnetters.EventCom.csproj", "{DF5755FC-CC69-4C12-BBB8-1FB4E42B2A1A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FC3AFCB4-A69B-4922-9F8A-03AB01D99B26}"
+	ProjectSection(SolutionItems) = preProject
+		Certs\dotnetters.keystore = Certs\dotnetters.keystore
+		Certs\dotnetters_cert.md = Certs\dotnetters_cert.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
