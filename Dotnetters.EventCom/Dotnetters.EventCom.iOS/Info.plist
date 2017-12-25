@@ -45,9 +45,9 @@
 	<key>CFBundleName</key>
 	<string>Dotnetters EventCom</string>
 	<key>CFBundleIdentifier</key>
-	<string>es.Dotnetters.EventCom</string>
+	<string>es.DotNetters.EventCom</string>
 	<key>CFBundleDisplayName</key>
-	<string>Dotnetters EventCom</string>
+	<string>DotNetters EventCom</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>XSLaunchImageAssets</key>
