@@ -5,7 +5,7 @@
              x:Class="Dotnetters.EventCom.Main.MainView"
              Title="Dotnetters Event Communicator">
 
-    <StackLayout>
+    <StackLayout Margin="5">
         <Label Text="Usuario"/>
         <Entry Text="{Binding UserName}"/>
         <Label Text="Mensaje"/>
