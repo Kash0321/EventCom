@@ -45,6 +45,11 @@ namespace Dotnetters.EventCom.Web
 
             app.UseStaticFiles();
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<MessagingHub>("messaging");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -54,11 +59,6 @@ namespace Dotnetters.EventCom.Web
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
-            });
-
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<MessagingHub>("messaging");
             });
         }
     }
