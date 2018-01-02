@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetters.EventCom.Web", "Dotnetters.EventCom.Web\Dotnetters.EventCom.Web.csproj", "{C87516FD-CCDC-419C-B740-C9BA3680767F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{80941FA4-76E5-48FA-8061-26E408A089DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -143,6 +145,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C87516FD-CCDC-419C-B740-C9BA3680767F} = {80941FA4-76E5-48FA-8061-26E408A089DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E2EAA91-7F1F-4C8D-8C3E-DA913DE65631}

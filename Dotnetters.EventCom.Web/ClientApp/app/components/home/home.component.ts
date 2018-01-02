@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit {
     public sendMessage(): void {
         this._hubConnection.invoke('Send', this.tuser, this.message);
         this.messages.unshift({ 'user': this.tuser, 'message': this.message, 'sentorreceived': 'Sent' });
-        //$('#collapseMessagingPanel').collapse();
     }
 
     ngOnInit() {
