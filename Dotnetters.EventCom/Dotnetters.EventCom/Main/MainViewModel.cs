@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.AppCenter.Analytics;
+using Microsoft.AspNet.SignalR.Client;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Dotnetters.EventCom.Main
@@ -11,6 +14,8 @@ namespace Dotnetters.EventCom.Main
     public class MainViewModel : BaseViewModel
     {
         public Command SendCommand { get; set; }
+
+        public HubConnection HubConnection { get; set; }
 
         string userName;
         /// <summary>
@@ -46,10 +51,47 @@ namespace Dotnetters.EventCom.Main
 
         public MainViewModel()
         {
-            SendCommand = new Command(() =>
+            HubConnection = new HubConnection("http://192.168.1.133:54762");
+
+            SendCommand = new Command(async () =>
             {
-                MessagingCenter.Send(this, "SendMessage");
+                await SendActionAsync(UserName, Message);
             });
+        }
+
+        async Task SendActionAsync(string user, string message)
+        {
+            MessagingCenter.Send(this, "SendMessage");
+
+            Analytics.TrackEvent(
+                "Main",
+                new Dictionary<string, string> {
+                                    { "Action", "SendMessage" },
+                                    { "UserName", UserName },
+                                    { "Message", Message }
+                });
+
+            if (HubConnection.State == ConnectionState.Disconnected)
+            {
+                try
+                {
+                    await HubConnection.Start();
+                }
+                catch (Exception ex)
+                {
+                    Analytics.TrackEvent(
+                        "Main",
+                        new Dictionary<string, string> {
+                                                        { "Action", "SendMessageError" },
+                                                        { "UserName", UserName },
+                                                        { "Message", Message },
+                                                        { "Exception", ex.ToString() },
+                        });
+                }
+            }
+
+            IHubProxy messagingHubProxy = HubConnection.CreateHubProxy("MessagingHub");
+            await messagingHubProxy.Invoke("Send", user, message);
         }
     }
 }

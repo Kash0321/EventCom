@@ -26,7 +26,7 @@ namespace Dotnetters.EventCom.Main
             base.OnAppearing();
 
             Analytics.TrackEvent(
-                "MainView",
+                "Main",
                 new Dictionary<string, string> {
                     { "Action", "OnAppearing" }
                 });
@@ -39,7 +39,7 @@ namespace Dotnetters.EventCom.Main
             base.OnDisappearing();
 
             Analytics.TrackEvent(
-                "MainView",
+                "Main",
                 new Dictionary<string, string> {
                     { "Action", "OnDisappearing" }
                 });
@@ -49,20 +49,20 @@ namespace Dotnetters.EventCom.Main
 
         void SubscribeToMessages()
         {
-            MessagingCenter.Subscribe<MainViewModel>(this, "SendMessage", (vm) =>
-            {
-                Analytics.TrackEvent(
-                    "MainView",
-                    new Dictionary<string, string> {
-                        { "Action", "SendMessage" },
-                        { "UserName", vm.UserName },
-                        { "Message", vm.Message }
-                    });
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    DisplayAlert("Mensaje enviado", vm.UserName + ": " + vm.Message, "OK");
-                });
-            });
+            //MessagingCenter.Subscribe<MainViewModel>(this, "SendMessage", (vm) =>
+            //{
+            //    Analytics.TrackEvent(
+            //        "MainView",
+            //        new Dictionary<string, string> {
+            //            { "Action", "SendMessage" },
+            //            { "UserName", vm.UserName },
+            //            { "Message", vm.Message }
+            //        });
+            //    Device.BeginInvokeOnMainThread(() =>
+            //    {
+            //        DisplayAlert("Mensaje enviado", vm.UserName + ": " + vm.Message, "OK");
+            //    });
+            //});
         }
 
         void UnsubscribeFromMessages()
