@@ -51,7 +51,7 @@ namespace Dotnetters.EventCom.Main
 
         public MainViewModel()
         {
-            HubConnection = new HubConnection("http://192.168.1.133:54762");
+            HubConnection = new HubConnection("https://eventcom.azurewebsites.net");
 
             SendCommand = new Command(async () =>
             {
@@ -62,6 +62,7 @@ namespace Dotnetters.EventCom.Main
         async Task SendActionAsync(string user, string message)
         {
             MessagingCenter.Send(this, "SendMessage");
+            IHubProxy messagingHubProxy = HubConnection.CreateHubProxy("messaging");
 
             Analytics.TrackEvent(
                 "Main",
@@ -90,7 +91,6 @@ namespace Dotnetters.EventCom.Main
                 }
             }
 
-            IHubProxy messagingHubProxy = HubConnection.CreateHubProxy("MessagingHub");
             await messagingHubProxy.Invoke("Send", user, message);
         }
     }
