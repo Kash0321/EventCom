@@ -52,6 +52,24 @@ namespace Dotnetters.EventCom.Main
             set
             {
                 SetProperty(ref message, value);
+                if (value != string.Empty)
+                    StatusInfo = string.Empty;
+            }
+        }
+
+        string statusInfo;
+        /// <summary>
+        /// Información de estado
+        /// </summary>
+        public string StatusInfo
+        {
+            get
+            {
+                return statusInfo;
+            }
+            set
+            {
+                SetProperty(ref statusInfo, value);
             }
         }
 
@@ -66,17 +84,22 @@ namespace Dotnetters.EventCom.Main
             ErrorDescription = string.Empty;
         }
 
-        public MainViewModel()
+        public MainViewModel() : base("Comunicador")
         {
             HttpClient = new HttpClient
             {
                 MaxResponseContentBufferSize = 256000
             };
 
-            SendCommand = new Command(async () =>
-            {
-                await SendActionAsync(UserName, Message);
-            });
+            SendCommand = new Command(
+                async () =>
+                {
+                    await SendActionAsync(UserName, Message);
+                }, 
+                () => 
+                {
+                    return !IsBusy;
+                });
         }
 
         async Task SendActionAsync(string user, string message)
@@ -92,6 +115,8 @@ namespace Dotnetters.EventCom.Main
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 HttpResponseMessage response = null;
+                StatusInfo = "Enviando mensaje...";
+                IsBusy = true;
                 response = await HttpClient.PostAsync(uri, content);
 
                 if (!response.IsSuccessStatusCode)
@@ -109,7 +134,7 @@ namespace Dotnetters.EventCom.Main
             {
                 if (!onError)
                 {
-                    MessagingCenter.Send(this, "SendMessage");
+                    StatusInfo = "Mensaje enviado correctamente";
                     Analytics.TrackEvent(
                         "Main",
                         new Dictionary<string, string> {
@@ -117,10 +142,12 @@ namespace Dotnetters.EventCom.Main
                             { "UserName", UserName },
                             { "Message", Message }
                         });
+                    Clear();
                 }
                 else
                 {
                     MessagingCenter.Send(this, "ErrorSendingMessage");
+                    StatusInfo = "Error";
                     Analytics.TrackEvent(
                         "Main",
                         new Dictionary<string, string> {
@@ -130,6 +157,7 @@ namespace Dotnetters.EventCom.Main
                             { "Exception", ErrorDescription },
                         });
                 }
+                IsBusy = false;
             }
         }
     }
