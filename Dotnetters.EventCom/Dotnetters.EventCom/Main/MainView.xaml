@@ -3,14 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Dotnetters.EventCom.Main"
              x:Class="Dotnetters.EventCom.Main.MainView"
-             Title="Dotnetters Event Communicator">
-
-    <StackLayout Margin="5">
-        <Label Text="Usuario"/>
-        <Entry Text="{Binding UserName}"/>
-        <Label Text="Mensaje"/>
-        <Entry Text="{Binding Message}" WidthRequest="200"/>
-        <Button Text="Enviar" Command="{Binding SendCommand}"/>
-    </StackLayout>
-
+             Title="Comunicador">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Enviar" Command="{Binding SendCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="5">
+            <Label Text="Usuario"/>
+            <Entry Text="{Binding UserName}"/>
+            <Label Text="Mensaje"/>
+            <Editor Keyboard="Chat" Text="{Binding Message}" />
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

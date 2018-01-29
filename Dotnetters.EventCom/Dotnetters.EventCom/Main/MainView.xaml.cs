@@ -49,25 +49,29 @@ namespace Dotnetters.EventCom.Main
 
         void SubscribeToMessages()
         {
-            //MessagingCenter.Subscribe<MainViewModel>(this, "SendMessage", (vm) =>
-            //{
-            //    Analytics.TrackEvent(
-            //        "MainView",
-            //        new Dictionary<string, string> {
-            //            { "Action", "SendMessage" },
-            //            { "UserName", vm.UserName },
-            //            { "Message", vm.Message }
-            //        });
-            //    Device.BeginInvokeOnMainThread(() =>
-            //    {
-            //        DisplayAlert("Mensaje enviado", vm.UserName + ": " + vm.Message, "OK");
-            //    });
-            //});
+            MessagingCenter.Subscribe<MainViewModel>(this, "SendMessage", (vm) =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert($"Mensaje enviado como {vm.UserName}", vm.Message, "OK");
+                    vm.Clear();
+                });
+            });
+
+            MessagingCenter.Subscribe<MainViewModel>(this, "ErrorSendingMessage", (vm) =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("Se ha producido un error enviando el mensaje", vm.ErrorDescription, "OK");
+                    vm.Clear();
+                });
+            });
         }
 
         void UnsubscribeFromMessages()
         {
             MessagingCenter.Unsubscribe<MainViewModel>(this, "SendMessage");
+            MessagingCenter.Unsubscribe<MainViewModel>(this, "ErrorSendingMessage");
         }
     }
 }

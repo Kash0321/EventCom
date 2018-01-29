@@ -1,7 +1,11 @@
-﻿using Microsoft.AppCenter.Analytics;
+﻿using Dotnetters.EventCom.Model;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.AspNet.SignalR.Client;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -15,7 +19,9 @@ namespace Dotnetters.EventCom.Main
     {
         public Command SendCommand { get; set; }
 
-        public HubConnection HubConnection { get; set; }
+        HttpClient HttpClient { get; set; }
+
+        const string REST_URL = "http://eventcom.azurewebsites.net/api/Messages";
 
         string userName;
         /// <summary>
@@ -49,9 +55,23 @@ namespace Dotnetters.EventCom.Main
             }
         }
 
+        /// <summary>
+        /// Descripción del error si se ha producido
+        /// </summary>
+        public string ErrorDescription { get; set; }
+
+        public void Clear()
+        {
+            Message = string.Empty;
+            ErrorDescription = string.Empty;
+        }
+
         public MainViewModel()
         {
-            HubConnection = new HubConnection("https://eventcom.azurewebsites.net");
+            HttpClient = new HttpClient
+            {
+                MaxResponseContentBufferSize = 256000
+            };
 
             SendCommand = new Command(async () =>
             {
@@ -61,37 +81,56 @@ namespace Dotnetters.EventCom.Main
 
         async Task SendActionAsync(string user, string message)
         {
-            MessagingCenter.Send(this, "SendMessage");
-            IHubProxy messagingHubProxy = HubConnection.CreateHubProxy("messaging");
+            var uri = new Uri(REST_URL);
+            var onError = false;
 
-            Analytics.TrackEvent(
-                "Main",
-                new Dictionary<string, string> {
-                                    { "Action", "SendMessage" },
-                                    { "UserName", UserName },
-                                    { "Message", Message }
-                });
-
-            if (HubConnection.State == ConnectionState.Disconnected)
+            try
             {
-                try
+                var msgData = new MessageData() { User = UserName, Message = Message };
+                var json = JsonConvert.SerializeObject(msgData);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = null;
+                response = await HttpClient.PostAsync(uri, content);
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    await HubConnection.Start();
+                    ErrorDescription = response.ToString();
+                    onError = true;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                ErrorDescription = ex.ToString();
+                onError = true;
+            }
+            finally
+            {
+                if (!onError)
                 {
+                    MessagingCenter.Send(this, "SendMessage");
                     Analytics.TrackEvent(
                         "Main",
                         new Dictionary<string, string> {
-                                                        { "Action", "SendMessageError" },
-                                                        { "UserName", UserName },
-                                                        { "Message", Message },
-                                                        { "Exception", ex.ToString() },
+                            { "Action", "SendMessage" },
+                            { "UserName", UserName },
+                            { "Message", Message }
+                        });
+                }
+                else
+                {
+                    MessagingCenter.Send(this, "ErrorSendingMessage");
+                    Analytics.TrackEvent(
+                        "Main",
+                        new Dictionary<string, string> {
+                            { "Action", "SendMessage_Error" },
+                            { "UserName", UserName },
+                            { "Message", Message },
+                            { "Exception", ErrorDescription },
                         });
                 }
             }
-
-            await messagingHubProxy.Invoke("Send", user, message);
         }
     }
 }
