@@ -27,31 +27,11 @@
         </div>
     </div>
 
-    <div class="panel panel-default" *ngIf="messages.length > 0">
-        <div class="panel-heading">Messages</div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>From</th>
-                                <th>User</th>
-                                <th>Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of messages; let i = index">
-                                <td class="col-md-1">{{i + 1}}</td>
-                                <td class="col-md-1">{{item.sentorreceived}}</td>
-                                <td class="col-md-2">{{item.user}}</td>
-                                <td class="col-md-9">{{item.message}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div *ngIf="messages.length > 0">
+        <div *ngFor="let item of messages; let i = index" class="well well-sm">
+            <div class="username">{{item.user}}</div>
+            <div class="message">{{item.message}}</div>
+            <div class="pull-right timestamp">{{item.date}}</div><br />
         </div>
     </div>
 

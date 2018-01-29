@@ -17,3 +17,17 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+.username {
+    color:slategray;
+    font-weight: bolder;
+}
+
+.message { 
+    color: black;
+}
+
+.timestamp {
+    color: GrayText;
+    font-style:italic;
+}
