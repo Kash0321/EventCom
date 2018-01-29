@@ -15,9 +15,9 @@
             </Grid.RowDefinitions>
             <Grid Margin="5" Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="18"/>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="18"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Text="Usuario" />
@@ -25,7 +25,7 @@
                 <Label Grid.Row="2" Grid.Column="0" Text="Mensaje"/>
                 <Editor Grid.Row="3" Grid.Column="0" Keyboard="Chat" Text="{Binding Message}" />
             </Grid>
-            <Label Margin="3" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding StatusInfo}" FontSize="Small"/>
+            <Label Margin="3" HorizontalTextAlignment="Center" Grid.Row="1" Grid.Column="0" Text="{Binding StatusInfo}" FontSize="Micro"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
