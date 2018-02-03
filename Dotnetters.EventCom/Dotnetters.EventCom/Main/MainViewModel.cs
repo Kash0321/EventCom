@@ -136,7 +136,7 @@ namespace Dotnetters.EventCom.Main
                 {
                     StatusInfo = "Mensaje enviado correctamente";
                     Analytics.TrackEvent(
-                        "Main",
+                        "SendMessage",
                         new Dictionary<string, string> {
                             { "Action", "SendMessage" },
                             { "UserName", UserName },
@@ -149,7 +149,7 @@ namespace Dotnetters.EventCom.Main
                     MessagingCenter.Send(this, "ErrorSendingMessage");
                     StatusInfo = "Error";
                     Analytics.TrackEvent(
-                        "Main",
+                        "SendMessage_Error",
                         new Dictionary<string, string> {
                             { "Action", "SendMessage_Error" },
                             { "UserName", UserName },
