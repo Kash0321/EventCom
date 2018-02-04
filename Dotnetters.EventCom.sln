@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dotnetters.EventCom.Android", "Dotnetters.EventCom\Dotnetters.EventCom.Android\Dotnetters.EventCom.Android.csproj", "{F2258026-5D9F-450D-A1DC-935E67E9CA92}"
 EndProject
@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Certs\dotnetters.keystore = Certs\dotnetters.keystore
 		Certs\dotnetters_cert.md = Certs\dotnetters_cert.md
 		README.md = README.md
+		..\..\Users\casti\OneDrive\Mi DotNetters\Reconnect2017\Reconnect(2017)_Kash.pptx = ..\..\Users\casti\OneDrive\Mi DotNetters\Reconnect2017\Reconnect(2017)_Kash.pptx
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dotnetters.EventCom.Web", "Dotnetters.EventCom.Web\Dotnetters.EventCom.Web.csproj", "{C87516FD-CCDC-419C-B740-C9BA3680767F}"
